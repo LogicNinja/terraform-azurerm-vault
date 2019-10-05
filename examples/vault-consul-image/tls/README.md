@@ -1,12 +1,12 @@
 # Example TLS Certificate Files
 
-### Do NOT use these files in production!
+## Do NOT use these files in production!
 
 In a production setting, your TLS private key represents a critical secret. If it were stolen, its possessor could 
 impersonate your Vault server! For that reason, do NOT use these TLS certificate files in a public setting. They are 
 here only for convenience when building examples.
 
-### Files
+## Files
 
 The files in this folder are needed by Vault to accept HTTPS requests. They are:
 

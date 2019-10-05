@@ -14,7 +14,7 @@ resource "tls_self_signed_cert" "ca" {
   is_ca_certificate = true
 
   validity_period_hours = "${var.validity_period_hours}"
-  allowed_uses          = ["${var.ca_allowed_uses}"]
+  allowed_uses          = var.ca_allowed_uses
 
   subject {
     common_name  = "${var.ca_common_name}"
@@ -46,8 +46,8 @@ resource "tls_cert_request" "cert" {
   key_algorithm   = "${tls_private_key.cert.algorithm}"
   private_key_pem = "${tls_private_key.cert.private_key_pem}"
 
-  dns_names    = ["${var.dns_names}"]
-  ip_addresses = ["${var.ip_addresses}"]
+  dns_names    = var.dns_names
+  ip_addresses = var.ip_addresses
 
   subject {
     common_name  = "${var.common_name}"
@@ -63,7 +63,7 @@ resource "tls_locally_signed_cert" "cert" {
   ca_cert_pem        = "${tls_self_signed_cert.ca.cert_pem}"
 
   validity_period_hours = "${var.validity_period_hours}"
-  allowed_uses          = ["${var.allowed_uses}"]
+  allowed_uses          = var.allowed_uses
 
   # Store the certificate's public key in a file.
   provisioner "local-exec" {
