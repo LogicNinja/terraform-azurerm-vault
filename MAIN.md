@@ -1,8 +1,6 @@
-# Vault Cluster Example 
+# Vault Cluster Example
 
-This is an example of Terraform code to deploy a [Vault](https://www.vaultproject.io/) cluster in 
-[Azure](https://azure.microsoft.com/) using the [vault-cluster](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/vault-cluster) module. The Vault cluster uses 
-[Consul](https://www.consul.io/) as a storage backend, so this example also deploys a separate Consul server cluster 
+This is an example of Terraform code to deploy a [Vault](https://www.vaultproject.io/) cluster in [Azure](https://azure.microsoft.com/) using the [vault-cluster](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/vault-cluster) module. The Vault cluster uses [Consul](https://www.consul.io/) as a storage backend, so this example also deploys a separate Consul server cluster 
 using the [consul-cluster module](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/modules/consul-cluster) 
 from the Consul Azure Module.
 
