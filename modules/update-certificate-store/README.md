@@ -44,7 +44,7 @@ To use the `update-certificate-script`, use `git` to clone this repository at a 
 
 ```
 git clone --branch <VERSION> https://github.com/hashicorp/terraform-azurerm-vault.git
-terraform-vault-azure/tree/master/modules/update-certificate-script/update-certificate-script --cert-file-path /opt/vault/tls/ca.cert.pem
+terraform-azurerm-vault/tree/master/modules/update-certificate-script/update-certificate-script --cert-file-path /opt/vault/tls/ca.cert.pem
 ```
 
 That's it!
@@ -76,6 +76,6 @@ The `run-vault` script accepts the following arguments:
 Example:
 
 ```
-terraform-vault-azure/tree/master/modules/update-certificate-script/update-certificate-script --cert-file-path /opt/vault/tls/ca.cert.pem
+terraform-azurerm-vault/tree/master/modules/update-certificate-script/update-certificate-script --cert-file-path /opt/vault/tls/ca.cert.pem
 ```
 

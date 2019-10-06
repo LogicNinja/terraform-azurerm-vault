@@ -14,7 +14,7 @@ for all available tags) and run the `install-vault` script:
 
 ```
 git clone --branch <VERSION> https://github.com/hashicorp/terraform-azurerm-vault.git
-terraform-vault-azure/tree/master/modules/install-vault/install-vault --version 0.5.4
+terraform-azurerm-vault/tree/master/modules/install-vault/install-vault --version 0.5.4
 ```
 
 The `install-vault` script will install Vault, its dependencies, and the [run-vault script](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/run-vault).
