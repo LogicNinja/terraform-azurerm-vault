@@ -50,27 +50,27 @@ variable "custom_data" {
 
 variable "instance_tier" {
   description = "Specifies the tier of virtual machines in a scale set. Possible values, standard or basic."
-  default = "standard"
+  default     = "standard"
 }
 
 variable "consul_computer_name_prefix" {
   description = "The string that the name of each instance in the cluster will be prefixed with"
-  default = "consul"
+  default     = "consul"
 }
 
 variable "vault_computer_name_prefix" {
   description = "The string that the name of each instance in the cluster will be prefixed with"
-  default = "vault"
+  default     = "vault"
 }
 
 variable "consul_admin_user_name" {
   description = "The name of the administrator user for each instance in the cluster"
-  default = "consuladmin"
+  default     = "consuladmin"
 }
 
 variable "vault_admin_user_name" {
   description = "The name of the administrator user for each instance in the cluster"
-  default = "vaultadmin"
+  default     = "vaultadmin"
 }
 
 variable "instance_root_volume_size" {
@@ -95,13 +95,13 @@ variable "cluster_tag_value" {
 
 variable "subnet_ids" {
   description = "The subnet IDs into which the Azure Instances should be deployed. We recommend one subnet ID per node in the cluster_size variable. At least one of var.subnet_ids or var.availability_zones must be non-empty."
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "allowed_ssh_cidr_blocks" {
   description = "A list of CIDR-formatted IP address ranges from which the Azure Instances will allow SSH connections"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -129,3 +129,4 @@ variable "api_port" {
   description = "The port to use for Vault API calls"
   default     = 8200
 }
+
