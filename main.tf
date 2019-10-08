@@ -17,10 +17,6 @@ provider "azurerm" {
   tenant_id       = var.tenant_id
 }
 
-terraform {
-  required_version = ">= 0.12.0"
-}
-
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE THE NECESSARY NETWORK RESOURCES FOR THE EXAMPLE
 # ---------------------------------------------------------------------------------------------------------------------
@@ -66,7 +62,7 @@ module "consul_servers" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 data "template_file" "custom_data_consul" {
-  filename = "${path.module}/custom-data-consul.sh"
+  template = file("./custom-data-consul.sh")
 
   vars = {
     scale_set_name    = var.consul_cluster_name
@@ -118,7 +114,7 @@ module "vault_servers" {
 # This script will configure and start Consul
 # ---------------------------------------------------------------------------------------------------------------------
 data "template_file" "custom_data_vault" {
-  filename = "${path.module}/custom-data-vault.sh"
+  template = file("./custom-data-vault.sh")
 
   vars = {
     scale_set_name     = var.consul_cluster_name

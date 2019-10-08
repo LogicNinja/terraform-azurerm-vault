@@ -49,7 +49,7 @@ variable "allowed_inbound_cidr_blocks" {
 # ---------------------------------------------------------------------------------------------------------------------
 variable "location" {
   description = "The Azure region the consul cluster will be deployed in"
-  default     = "East US"
+  default     = "australiaeast"
 }
 
 variable "address_space" {
