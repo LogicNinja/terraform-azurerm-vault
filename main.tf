@@ -12,7 +12,7 @@ terraform {
 
 provider "azurerm" {
   # With azurerm 2.0 coming we need to pin to this version https://www.terraform.io/docs/providers/azurerm/guides/2.0-upgrade-guide.html
-  version = "=1.34.0"
+  version                    = "=1.34.0"
   subscription_id            = var.subscription_id
   client_id                  = var.client_id
   client_secret              = var.secret_access_key
