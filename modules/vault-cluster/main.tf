@@ -214,8 +214,7 @@ resource "azurerm_network_security_group" "vault" {
 }
 
 resource "azurerm_network_security_rule" "ssh" {
-  count = length(var.allowed_ssh_cidr_blocks)
-
+  count                       = length(var.allowed_ssh_cidr_blocks)
   access                      = "Allow"
   destination_address_prefix  = "*"
   destination_port_range      = "22"
