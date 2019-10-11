@@ -13,10 +13,10 @@ terraform {
 provider "azurerm" {
   # With azurerm 2.0 coming we need to pin to this version https://www.terraform.io/docs/providers/azurerm/guides/2.0-upgrade-guide.html
   version = "=1.34.0"
-  subscription_id = var.subscription_id
-  client_id       = var.client_id
-  client_secret   = var.secret_access_key
-  tenant_id       = var.tenant_id
+  subscription_id            = var.subscription_id
+  client_id                  = var.client_id
+  client_secret              = var.secret_access_key
+  tenant_id                  = var.tenant_id
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -78,12 +78,12 @@ data "template_file" "custom_data_consul" {
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE THE STORAGE
 # ---------------------------------------------------------------------------------------------------------------------
-resource "azurerm_storage_container" "vault_storage" {
-  name                  = "vault"
-  resource_group_name   = var.resource_group_name
-  storage_account_name  = var.storage_account_name
-  container_access_type = "private"
-}
+# resource "azurerm_storage_container" "vault_storage" {
+#   name                  = "vault"
+#   resource_group_name   = var.resource_group_name
+#   storage_account_name  = var.storage_account_name
+#   container_access_type = "private"
+# }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # DEPLOY THE VAULT SERVER NODES
@@ -107,7 +107,7 @@ module "vault_servers" {
   instance_size                             = var.instance_size
   image_id                                  = var.image_uri
   subnet_id                                 = azurerm_subnet.consul.id
-  storage_container_name                    = "vault"
+  storage_container_name                    = var.vault_storage_container_name
   associate_public_ip_address_load_balancer = true
 }
 
@@ -126,7 +126,8 @@ data "template_file" "custom_data_vault" {
     secret_access_key  = var.secret_access_key
     azure_account_name = var.storage_account_name
     azure_account_key  = var.storage_account_key
-    azure_container    = azurerm_storage_container.vault_storage.name
+    #azure_container    = azurerm_storage_container.vault_storage.name
+    azure_container    = var.vault_storage_container_name
   }
 }
 

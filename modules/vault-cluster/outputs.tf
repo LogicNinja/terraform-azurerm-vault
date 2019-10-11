@@ -10,7 +10,7 @@ output "cluster_size" {
   value = var.cluster_size
 }
 
-output "storage_containter_id" {
+output "storage_containter_name" {
   value = azurerm_storage_container.vault.id
 }
 

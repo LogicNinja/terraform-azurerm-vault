@@ -72,6 +72,11 @@ variable "vault_cluster_name" {
   default     = "vault-example"
 }
 
+variable "vault_storage_container_name" {
+  description = "vault data store container name in the Storage Account"
+  default     = "vault"
+}
+
 variable "instance_size" {
   description = "The instance size for the servers"
   default     = "Standard_A0"
