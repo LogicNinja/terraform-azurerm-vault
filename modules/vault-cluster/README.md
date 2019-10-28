@@ -1,6 +1,6 @@
 # Vault Cluster
 
-This folder contains a [Terraform](https://www.terraform.io/) module that can be used to deploy a [Vault](https://www.vaultproject.io/) cluster in [Azure](https://azure.microsoft.com/) on top of a Scale Set. This module is designed to deploy an [Azure Managed Image](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer) that had Vault installed via the [install-vault](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/install-vault) module in this Module.
+This folder contains a [Terraform](https://www.terraform.io/) module that can be used to deploy a [Vault](https://www.vaultproject.io/) cluster in [Azure](https://azure.microsoft.com/) on top of a Scale Set. This module is designed to deploy an [Azure Managed Image](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer) that had Vault installed via the [install-vault](./modules/install-vault) module in this Module.
 
 ## How to use this module
 
@@ -9,7 +9,6 @@ code by adding a `module` configuration and setting its `source` parameter to UR
 
 ```hcl
 module "vault_cluster" {
-  # TODO: update this to the final URL
   # Use version v0.0.1 of the vault-cluster module
   source = "github.com/hashicorp/terraform-azurerm-vault//modules/vault-cluster?ref=v0.0.1"
 
@@ -35,21 +34,21 @@ Note the following parameters:
 
 * `source`: Use this parameter to specify the URL of the vault-cluster module. The double slash (`//`) is intentional and required. Terraform uses it to specify subfolders within a Git repo (see [module sources](https://www.terraform.io/docs/modules/sources.html)). The `ref` parameter specifies a specific Git tag in this repo. That way, instead of using the latest version of this module from the `master` branch, which will change every time you run Terraform, you're using a fixed version of the repo.
 
-* `image_uri`: Use this parameter to specify the URI of a Vault [Azure Managed Image](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer) to deploy on each server in the cluster. You should install Vault in this image using the scripts in the [install-vault](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/install-vault) module.
+* `image_uri`: Use this parameter to specify the URI of a Vault [Azure Managed Image](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer) to deploy on each server in the cluster. You should install Vault in this image using the scripts in the [install-vault](./modules/install-vault) module.
   
 * `storage_account_name, storage_account_key and storage_container_name`: This module creates an [Azure Storage Container](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs) to use as a storage backend for Vault.
 
 * `custom_data`: Use this parameter to specify a [Custom Data](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/classic/inject-custom-data) script that each
-  server will run during boot. This is where you can use the [run-vault script](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/run-vault) to configure and   run Vault. The `run-vault` script is one of the scripts installed by the [install-vault](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/install-vault)   module.
+  server will run during boot. This is where you can use the [run-vault script](./modules/run-vault) to configure and   run Vault. The `run-vault` script is one of the scripts installed by the [install-vault](./modules/install-vault)   module.
 
 You can find the other parameters in [vars.tf](vars.tf).
 
-Check out the [main example](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/MAIN.md) example for working sample code.
+Check out the [main example](./MAIN.md) example for working sample code.
 
 ## How to use the vault cluster
 
 To use the Vault cluster, you will typically need to SSH to each of the Vault servers. If you deployed the
-[main example](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/MAIN.md) example, the [vault-examples-helper.sh script](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/examples/vault-examples-helper/vault-examples-helper.sh) will do the lookup for you automatically (note, you must have the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) and [jq](https://stedolan.github.io/jq/) installed locally):
+[main example](./MAIN.md) example, the [vault-examples-helper.sh script](./examples/vault-examples-helper/vault-examples-helper.sh) will do the lookup for you automatically (note, you must have the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) and [jq](https://stedolan.github.io/jq/) installed locally):
 
 ```shell
 > ../vault-examples-helper/vault-examples-helper.sh
@@ -131,7 +130,7 @@ value               bar
 
 To access Vault from a different server in the same account, you need to specify the URL of the Vault cluster. You could manually look up the Vault cluster's IP address, but since this module uses Consul not only as a [storage backend](https://www.vaultproject.io/docs/configuration/storage/consul.html) but also as a way to register [DNS entries](https://www.consul.io/docs/guides/forwarding.html), you can access Vault using a nice domain name instead, such as `vault.service.consul`.
 
-To set this up, use the [install-dnsmasq module](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/install-dnsmasq) on each server that needs to access Vault. This allows you to access Vault from your Azure Instances as follows:
+To set this up, use the [install-dnsmasq module](.//modules/install-dnsmasq) on each server that needs to access Vault. This allows you to access Vault from your Azure Instances as follows:
 
 ```shell
 vault -address=https://vault.service.consul:8200 read secret/foo
@@ -159,7 +158,7 @@ refresh_interval    768h0m0s
 value               bar
 ```
 
-Note that if you're using a self-signed TLS cert (e.g. generated from the [private-tls-cert module](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/private-tls-cert)), you'll need to have the public key of the CA that signed that cert or you'll get an "x509: certificate signed by unknown authority" error. You could pass the certificate manually:
+Note that if you're using a self-signed TLS cert (e.g. generated from the [private-tls-cert module](./modules/private-tls-cert)), you'll need to have the public key of the CA that signed that cert or you'll get an "x509: certificate signed by unknown authority" error. You could pass the certificate manually:
 
 ```shell
 vault read -ca-cert=/opt/vault/tls/ca.crt.pem secret/foo
@@ -170,9 +169,9 @@ refresh_interval    768h0m0s
 value               bar
 ```
 
-However, to avoid having to add the `-ca-cert` argument to every single call, you can use the [update-certificate-store module](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/update-certificate-store) to configure the server to trust the CA.
+However, to avoid having to add the `-ca-cert` argument to every single call, you can use the [update-certificate-store module](./modules/update-certificate-store) to configure the server to trust the CA.
 
-Check out the [main example](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/MAIN.md) for working sample code.
+Check out the [main example](./MAIN.md) for working sample code.
 
 #### Access Vault from the public Internet
 
@@ -259,11 +258,11 @@ Here are some of the main security considerations to keep in mind when using thi
 
 ### Encryption in transit
 
-Vault uses TLS to encrypt its network traffic. For instructions on configuring TLS, have a look at the [How do you handle encryption documentation](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/run-vault#how-do-you-handle-encryption).
+Vault uses TLS to encrypt its network traffic. For instructions on configuring TLS, have a look at the [How do you handle encryption documentation](./modules/run-vault#how-do-you-handle-encryption).
 
 ### Encryption at rest
 
-Vault servers keep everything in memory and does not write any data to the local hard disk. To persist data, Vault encrypts it, and sends it off to its storage backends, so no matter how the backend stores that data, it is already encrypted. By default, this Blueprint uses Consul as a storage backend, so if you want an additional layer of protection, you can check out the [official Consul encryption docs](https://www.consul.io/docs/agent/encryption.html) and the Consul Azure Module [How do you handle encryption docs](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/run-consul#how-do-you-handle-encryption) for more info.
+Vault servers keep everything in memory and does not write any data to the local hard disk. To persist data, Vault encrypts it, and sends it off to its storage backends, so no matter how the backend stores that data, it is already encrypted. By default, this Blueprint uses Consul as a storage backend, so if you want an additional layer of protection, you can check out the [official Consul encryption docs](https://www.consul.io/docs/agent/encryption.html) and the Consul Azure Module [How do you handle encryption docs](.//modules/run-consul#how-do-you-handle-encryption) for more info.
 
 ### Consul
 
@@ -272,7 +271,7 @@ This module configures Vault to use Consul as a high availability storage backen
 1. Vault is a tool built specifically for security, and running any other software on the same server increases its surface area to attackers.
 2. This Vault Module uses Consul as a high availability storage backend and both Vault and Consul keep their working set in memory. That means for every 1 byte of data in Vault, you'd also have 1 byte of data in Consul, doubling your memory consumption on each server.
 
-Check out the [Consul Azure Module](https://github.com/diaxion/terraform-azurerm-consul) for how to deploy a Consul server cluster in Azure. See the [main example](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/MAIN.md) for sample code that shows how to run both a Vault server cluster and Consul server cluster.
+Check out the [Consul Azure Module](https://github.com/diaxion/terraform-azurerm-consul) for how to deploy a Consul server cluster in Azure. See the [main example](./MAIN.md) for sample code that shows how to run both a Vault server cluster and Consul server cluster.
 
 ### Monitoring, alerting, log aggregation
 

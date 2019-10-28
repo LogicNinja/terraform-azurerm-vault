@@ -2,7 +2,7 @@
 
 This folder contains a script for adding a trusted, Certificate Authority (CA) certificate to an OS's certificate store. This allows you to establish TLS connections to services that use TLS certs signed by that CA without getting x509 certificate errors. This script has been tested on the following operating systems Ubuntu 16.04. There is a good chance it will work on other flavors of Debian as well.
 
-If you're unfamiliar with how TLS certificates work, check out the [Background section](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/private-tls-cert#background).
+If you're unfamiliar with how TLS certificates work, check out the [Background section](./modules/private-tls-cert#background).
 
 ## Motivation
 
@@ -51,7 +51,7 @@ refresh_interval    768h0m0s
 value               bar
 ```
 
-See the [vault-consul-image example](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/examples/vault-consul-image) for working sample code.
+See the [vault-consul-image example](./examples/vault-consul-image) for working sample code.
 
 ## Command line Arguments
 

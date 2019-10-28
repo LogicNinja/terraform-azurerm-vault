@@ -42,7 +42,7 @@ Now that you have your TLS certs, check out the next section for how to use them
 
 ### Distributing TLS certs to your servers
 
-Distribute the private and public keys (the files at `private_key_file_path` and `public_key_file_path`) to the servers that will use them to handle TLS connections (e.g. Vault). For example, to run Vault with the [run-vault module](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/run-vault), you need to pass it the TLS certs:
+Distribute the private and public keys (the files at `private_key_file_path` and `public_key_file_path`) to the servers that will use them to handle TLS connections (e.g. Vault). For example, to run Vault with the [run-vault module](./modules/run-vault), you need to pass it the TLS certs:
 
 ```shell
 /opt/vault/bin/run-vault --tls-cert-file /opt/vault/tls/vault.crt.pem --tls-key-file /opt/vault/tls/vault.key.pem
@@ -74,7 +74,7 @@ refresh_interval    768h0m0s
 value               bar
 ```
 
-As an alternative, you can configure the certificate trust on your server so that all TLS clients trust your CA public key by running the [update-certificate-store module](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/update-certificate-store) on your server. Once you do that, your system will trust the public key without having to pass it in explicitly:
+As an alternative, you can configure the certificate trust on your server so that all TLS clients trust your CA public key by running the [update-certificate-store module](./modules/update-certificate-store) on your server. Once you do that, your system will trust the public key without having to pass it in explicitly:
 
 ```shell
 update-certificate-store --cert-file /opt/vault/tls/ca.crt.pem
