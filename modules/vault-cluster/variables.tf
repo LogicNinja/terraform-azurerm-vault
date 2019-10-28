@@ -3,8 +3,17 @@
 # You must provide a value for each of these parameters.
 # ---------------------------------------------------------------------------------------------------------------------
 
-variable "location" {
-  description = "The location that the resources will run in (e.g. East US)"
+variable "cluster_name" {
+  description = "The name of the Consul cluster (e.g. consul-stage). This variable is used to namespace all resources created by this module."
+}
+
+variable "cluster_size" {
+  description = "The number of nodes to have in the Consul cluster. We strongly recommended that you use either 3 or 5."
+  default     = 3
+}
+
+variable "key_data" {
+  description = "The SSH public key that will be added to SSH authorized_users on the consul instances"
 }
 
 variable "resource_group_name" {
@@ -15,32 +24,28 @@ variable "storage_account_name" {
   description = "The name of the storage account that will be used for images"
 }
 
-variable "subnet_id" {
-  description = "The id of the subnet to deploy the cluster into"
+variable "location" {
+  description = "The location that the resources will run in (e.g. East US)"
 }
 
-variable "cluster_name" {
-  description = "The name of the Consul cluster (e.g. consul-stage). This variable is used to namespace all resources created by this module."
-}
-
-variable "storage_container_name" {
-  description = "The name of the Azure Storage Container where secrets will be kept."
-}
-
-variable "image_id" {
-  description = "The URL of the Image to run in this cluster. Should be an image that had Consul installed and configured by the install-consul module."
+variable "custom_data" {
+  description = "A Custom Data script to execute while the server is booting. We remmend passing in a bash script that executes the run-consul script, which should have been installed in the Consul Image by the install-consul module."
 }
 
 variable "instance_size" {
   description = "The size of Azure Instances to run for each node in the cluster (e.g. Standard_A0)."
 }
 
-variable "key_data" {
-  description = "The SSH public key that will be added to SSH authorized_users on the consul instances"
+variable "image_id" {
+  description = "The URL of the Image to run in this cluster. Should be an image that had Consul installed and configured by the install-consul module."
 }
 
-variable "custom_data" {
-  description = "A Custom Data script to execute while the server is booting. We remmend passing in a bash script that executes the run-consul script, which should have been installed in the Consul Image by the install-consul module."
+variable "subnet_id" {
+  description = "The id of the subnet to deploy the cluster into"
+}
+
+variable "storage_container_name" {
+  description = "The name of the Azure Storage Container where secrets will be kept."
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -76,11 +81,6 @@ variable "vault_admin_user_name" {
 variable "instance_root_volume_size" {
   description = "Specifies the size of the instance root volume in GB. Default 40GB"
   default     = 40
-}
-
-variable "cluster_size" {
-  description = "The number of nodes to have in the Consul cluster. We strongly recommended that you use either 3 or 5."
-  default     = 3
 }
 
 variable "cluster_tag_key" {
