@@ -107,7 +107,7 @@ variable "allowed_ssh_cidr_blocks" {
 
 variable "associate_public_ip_address_load_balancer" {
   description = "If set to true, create a public IP address with back end pool to allow SSH publically to the instances."
-  default     = false
+  default     = true
 }
 
 variable "root_volume_type" {

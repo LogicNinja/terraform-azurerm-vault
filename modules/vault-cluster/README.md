@@ -131,7 +131,7 @@ value               bar
 
 To access Vault from a different server in the same account, you need to specify the URL of the Vault cluster. You could manually look up the Vault cluster's IP address, but since this module uses Consul not only as a [storage backend](https://www.vaultproject.io/docs/configuration/storage/consul.html) but also as a way to register [DNS entries](https://www.consul.io/docs/guides/forwarding.html), you can access Vault using a nice domain name instead, such as `vault.service.consul`.
 
-To set this up, use the [install-dnsmasq module](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/modules/install-dnsmasq) on each server that needs to access Vault. This allows you to access Vault from your Azure Instances as follows:
+To set this up, use the [install-dnsmasq module](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/install-dnsmasq) on each server that needs to access Vault. This allows you to access Vault from your Azure Instances as follows:
 
 ```shell
 vault -address=https://vault.service.consul:8200 read secret/foo
@@ -263,7 +263,7 @@ Vault uses TLS to encrypt its network traffic. For instructions on configuring T
 
 ### Encryption at rest
 
-Vault servers keep everything in memory and does not write any data to the local hard disk. To persist data, Vault encrypts it, and sends it off to its storage backends, so no matter how the backend stores that data, it is already encrypted. By default, this Blueprint uses Consul as a storage backend, so if you want an additional layer of protection, you can check out the [official Consul encryption docs](https://www.consul.io/docs/agent/encryption.html) and the Consul Azure Module [How do you handle encryption docs](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/modules/run-consul#how-do-you-handle-encryption) for more info.
+Vault servers keep everything in memory and does not write any data to the local hard disk. To persist data, Vault encrypts it, and sends it off to its storage backends, so no matter how the backend stores that data, it is already encrypted. By default, this Blueprint uses Consul as a storage backend, so if you want an additional layer of protection, you can check out the [official Consul encryption docs](https://www.consul.io/docs/agent/encryption.html) and the Consul Azure Module [How do you handle encryption docs](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/run-consul#how-do-you-handle-encryption) for more info.
 
 ### Consul
 
@@ -272,7 +272,7 @@ This module configures Vault to use Consul as a high availability storage backen
 1. Vault is a tool built specifically for security, and running any other software on the same server increases its surface area to attackers.
 2. This Vault Module uses Consul as a high availability storage backend and both Vault and Consul keep their working set in memory. That means for every 1 byte of data in Vault, you'd also have 1 byte of data in Consul, doubling your memory consumption on each server.
 
-Check out the [Consul Azure Module](https://github.com/hashicorp/terraform-azurerm-consul) for how to deploy a Consul server cluster in Azure. See the [main example](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/MAIN.md) for sample code that shows how to run both a Vault server cluster and Consul server cluster.
+Check out the [Consul Azure Module](https://github.com/diaxion/terraform-azurerm-consul) for how to deploy a Consul server cluster in Azure. See the [main example](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/MAIN.md) for sample code that shows how to run both a Vault server cluster and Consul server cluster.
 
 ### Monitoring, alerting, log aggregation
 

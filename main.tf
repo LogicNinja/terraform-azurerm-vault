@@ -99,8 +99,8 @@ module "vault_servers" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# THE CUSTOM DATA SCRIPT THAT WILL RUN ON EACH CONSUL SERVER AZURE INSTANCE WHEN IT'S BOOTING
-# This script will configure and start Consul
+# THE CUSTOM DATA SCRIPT THAT WILL RUN ON EACH VAULT SERVER AZURE INSTANCE WHEN IT'S BOOTING
+# This script will configure and start Vault
 # ---------------------------------------------------------------------------------------------------------------------
 data "template_file" "custom_data_vault" {
   template = file("./custom-data-vault.sh")

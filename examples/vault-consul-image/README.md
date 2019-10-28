@@ -1,16 +1,16 @@
 # Vault and Consul AMI
 
 This folder shows an example of how to use the [install-vault sub-module](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/install-vault) from this Module and 
-the [install-consul](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/modules/install-consul)
-and [install-dnsmasq](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/modules/install-dnsmasq) modules
+the [install-consul](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/install-consul)
+and [install-dnsmasq](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/install-dnsmasq) modules
 from the Consul Azure Module with [Packer](https://www.packer.io/) to create an 
 [Azure Managed Image](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer) that has 
 Vault and Consul installed on top of Ubuntu 16.04.
 
 You can use this Image to deploy a [Vault cluster](https://www.vaultproject.io/) by using the [vault-cluster
-module](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/modules/vault-cluster). This Vault cluster will use Consul as its HA backend, so you can also use the 
+module](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/vault-cluster). This Vault cluster will use Consul as its HA backend, so you can also use the 
 same Image to deploy a separate [Consul server cluster](https://www.consul.io/) by using the [consul-cluster 
-module](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/modules/consul-cluster). 
+module](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/consul-cluster). 
 
 Check out the [main example](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/MAIN.md) for working sample code. For more info on Vault 
 installation and configuration, check out the [install-vault](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/install-vault) documentation.

@@ -1,7 +1,7 @@
 # Vault Cluster Example
 
 This is an example of Terraform code to deploy a [Vault](https://www.vaultproject.io/) cluster in [Azure](https://azure.microsoft.com/) using the [vault-cluster](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/vault-cluster) module. The Vault cluster uses [Consul](https://www.consul.io/) as a storage backend, so this example also deploys a separate Consul server cluster 
-using the [consul-cluster module](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/modules/consul-cluster) 
+using the [consul-cluster module](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/consul-cluster) 
 from the Consul Azure Module.
 
 This example creates a public Vault cluster that is accessible from the public Internet via an
@@ -12,8 +12,7 @@ your Azure account.
 
 ![Vault architecture](https://raw.githubusercontent.com/hashicorp/terraform-azurerm-vault/master/_docs/architecture-azurelb.png)
 
-You will need to create an [Azure Managed Image](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer) 
-that has Vault and Consul installed, which you can do using the [vault-consul-image example](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/examples/vault-consul-image).  
+You will need to create an [Azure Managed Image](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer) that has Vault and Consul installed, which you can do using the [vault-consul-image example](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/examples/vault-consul-image).  
 
 For more info on how the Vault cluster works, check out the [vault-cluster](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/vault-cluster) documentation.
 
@@ -36,4 +35,4 @@ To deploy a Vault Cluster:
    `../vault-examples-helper/vault-examples-helper.sh`.
    
 To see how to connect to the Vault cluster, initialize it, and start reading and writing secrets, head over to the 
-[How do you use the Vault cluster?](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/modules/vault-cluster#how-do-you-use-the-vault-cluster) docs.
+[How do you use the Vault cluster?](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/vault-cluster#how-do-you-use-the-vault-cluster) docs.

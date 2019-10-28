@@ -47,19 +47,19 @@ Click on each of the modules above for more details.
 
 To deploy Vault with this Blueprint, you will need to deploy two separate clusters: one to run [Consul](https://www.consul.io/) servers (which Vault uses as a [high availability backend](https://www.vaultproject.io/docs/concepts/ha.html)) and one to run Vault servers.
 
-To deploy the Consul server cluster, use the [Consul Azure Module](https://github.com/hashicorp/terraform-azurerm-consul).
+To deploy the Consul server cluster, use the [Consul Azure Module](https://github.com/diaxion/terraform-azurerm-consul).
 
 To deploy the Vault cluster:
 
-1. Create an Azure Image that has Vault installed (using the [install-vault module](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/install-vault)) and the Consul agent installed (using the [install-consul module](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/modules/install-consul)). Here is an [example Packer template](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/examples/consul-image).
+1. Create an Azure Image that has Vault installed (using the [install-vault module](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/install-vault)) and the Consul agent installed (using the [install-consul module](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/install-consul)). Here is an [example Packer template](https://github.com/diaxion/terraform-azurerm-consul/tree/master/examples/consul-image).
 
 1. Deploy that Azure Image across a Scale Set in a private subnet using the Terraform [vault-cluster module](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/vault-cluster).
 
-1. Execute the [run-consul script](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/modules/run-consul) with the `--client` flag during boot on each Instance to have the Consul agent connect to the Consul server cluster.
+1. Execute the [run-consul script](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/run-consul) with the `--client` flag during boot on each Instance to have the Consul agent connect to the Consul server cluster.
 
 1. Execute the [run-vault](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/run-vault) script during boot on each Instance to create the Vault cluster.
 
-1. If you only need to access Vault from inside your Azure account (recommended), run the [install-dnsmasq module](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/modules/install-dnsmasq) on each server, and that server will be able to reach Vault using the Consul Server cluster as the DNS resolver (e.g. using an address like `vault.service.consul`). See the [main example](https://github.com/hashicorp/terraform-azurerm-consul/tree/master/MAIN.md) for working sample code.
+1. If you only need to access Vault from inside your Azure account (recommended), run the [install-dnsmasq module](https://github.com/diaxion/terraform-azurerm-consul/tree/master/modules/install-dnsmasq) on each server, and that server will be able to reach Vault using the Consul Server cluster as the DNS resolver (e.g. using an address like `vault.service.consul`). See the [main example](https://github.com/diaxion/terraform-azurerm-consul/tree/master/MAIN.md) for working sample code.
 
 1. Head over to the [How do you use the Vault cluster?](https://github.com/hashicorp/terraform-azurerm-vault/tree/master/modules/vault-cluster#how-do-you-use-the-vault-cluster) guide
    to learn how to initialize, unseal, and use Vault.

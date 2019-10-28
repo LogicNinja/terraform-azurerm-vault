@@ -61,10 +61,12 @@
         "DEBIAN_FRONTEND=noninteractive apt-get update && apt-get upgrade",
         "DEBIAN_FRONTEND=noninteractive apt-get install -y git libssl-dev libffi-dev python-dev build-essential apt-transport-https",
         "DEBIAN_FRONTEND=noninteractive curl -sL https://aka.ms/InstallAzureCLIDeb | bash",
-        "/tmp/terraform-azurerm-vault/modules/install-vault/install-vault --version {{user `vault_version`}}",
-        "git clone --branch {{user `consul_module_version`}} https://github.com/hashicorp/terraform-azurerm-consul.git /tmp/terraform-consul-azure",
+
+        "git clone --branch {{user `consul_module_version`}} https://github.com/diaxion/terraform-azurerm-consul.git /tmp/terraform-consul-azure",
         "/tmp/terraform-consul-azure/modules/install-consul/install-consul --version {{user `consul_version`}}",
-        "/tmp/terraform-consul-azure/modules/install-dnsmasq/install-dnsmasq"
+        "/tmp/terraform-consul-azure/modules/install-dnsmasq/install-dnsmasq",
+      
+        "/tmp/terraform-azurerm-vault/modules/install-vault/install-vault --version {{user `vault_version`}}"  
       ]
     },
     {
