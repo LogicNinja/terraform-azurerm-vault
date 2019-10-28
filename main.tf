@@ -54,7 +54,7 @@ module "consul_servers" {
   instance_size               = var.instance_size
   image_id                    = var.image_uri
   subnet_id                   = azurerm_subnet.consul.id
-  allowed_inbound_cidr_blocks = []
+  allowed_inbound_cidr_blocks = var.allowed_inbound_cidr_blocks
 }
 # ---------------------------------------------------------------------------------------------------------------------
 # THE CUSTOM DATA SCRIPT THAT WILL RUN ON EACH CONSUL SERVER AZURE INSTANCE WHEN IT'S BOOTING
