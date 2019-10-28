@@ -113,7 +113,6 @@ data "template_file" "custom_data_vault" {
     secret_access_key  = var.secret_access_key
     azure_account_name = var.storage_account_name
     azure_account_key  = var.storage_account_key
-    #azure_container    = azurerm_storage_container.vault_storage.name
     azure_container    = var.vault_storage_container_name
   }
 }
