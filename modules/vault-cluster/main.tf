@@ -3,11 +3,16 @@ terraform {
 }
 
 #---------------------------------------------------------------------------------------------------------------------
+# NB re Azure Storage Account for the container
+# Ensure that the SA that the container is created in is set to the "Standard" Performance tier.
+# Block Blobs used by Vault cannot exist in Premium Performance tier SAs.
+#---------------------------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------------------------
 # CREATE STORAGE BUCKET
 # ---------------------------------------------------------------------------------------------------------------------
 resource "azurerm_storage_container" "vault" {
   name                  = var.storage_container_name
-  resource_group_name   = var.resource_group_name
   storage_account_name  = var.storage_account_name
   container_access_type = "private"
 }

@@ -16,8 +16,13 @@ This quick start assumes the following:
 ## Prepare your local machine
 
 1. Configure an Azure AD (AAD) Service Principle (SP) for your local TF to connect to AAD. [Hashicorp Docs](https://www.terraform.io/docs/providers/azurerm/auth/service_principal_client_secret.html)
-2. `git clone` the repo to your local machine
-3. Create a `terraform.tfvars` file or copy the example one (`terraform.tfvars.example`) that is included and fill in the values you will use.
+1. `git clone` the repo to your local machine
+1. Create a `terraform.tfvars` file or copy the example one (`terraform.tfvars.example`) that is included and fill in the values you will use.
+
+## Prepare Azure
+
+1. Create the Resource Group
+1. Create the Storage Account. Note that the Storage Account must be created as `Performance: Standard`. The blob type used by Vault is not available when the SA is `Performance: Premium`.
 
 ## Build your images
 
