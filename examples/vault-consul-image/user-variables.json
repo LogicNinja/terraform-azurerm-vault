@@ -1,0 +1,22 @@
+{
+    "subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
+    "tenant_id": "{{env `ARM_TENANT_ID`}}",
+    "client_id": "{{env `ARM_CLIENT_ID`}}",
+    "client_secret": "{{env `ARM_CLIENT_SECRET`}}",
+    "github_oauth_token": "{{env `GITHUB_OAUTH_TOKEN`}}",
+    "azure_location": "Australia East",
+    "consul_module_version": "v0.0.1",
+    "consul_version": "1.6.1",
+    "vault_version": "1.2.3",
+    "resource_group_name": "terraform-vault-dev",
+    "ca_public_key_path": "{{env `CA_PUBLIC_KEY_PATH`}}",
+    "tls_public_key_path": "{{env `VAULT_PUBLIC_KEY_PATH`}}",
+    "tls_private_key_path": "{{env `VAULT_PRIVATE_KEY_PATH`}}",
+    "vm_size": "Standard_A1_V2",
+    "tag_chargeback": "False",
+    "tag_costcenter": "BLANK",
+    "tag_imtcostcenter": "8315",
+    "tag_owner": "cloudplatformsnotices@csiro.au",
+    "tag_project": "OD-214413",
+    "tag_WBS": "BLANK"
+}

@@ -1,22 +1,8 @@
 {
   "min_packer_version": "0.12.0",
-  "variables": {
-    "subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
-    "tenant_id": "{{env `ARM_TENANT_ID`}}",
-    "client_id": "{{env `ARM_CLIENT_ID`}}",
-    "client_secret": "{{env `ARM_CLIENT_SECRET`}}",
-    "azure_location": "australiaeast",
-    "consul_module_version": "v0.0.1",
-    "consul_version": "1.6.1",
-    "vault_version": "1.2.3",
-    "github_oauth_token": "{{env `GITHUB_OAUTH_TOKEN`}}",
-    "resource_group_name": "terraform-azurerm-vault-dev",
-    "ca_public_key_path": "./tls/ca.crt.pem",
-    "tls_public_key_path": "./tls/vault.crt.pem",
-    "tls_private_key_path": "./tls/vault.key.pem"
-  },
   "builders": [
     {
+      "async_resourcegroup_delete": true,
       "type": "azure-arm",
       "subscription_id": "{{user `subscription_id`}}",
       "tenant_id": "{{user `tenant_id`}}",
@@ -27,9 +13,17 @@
       "os_type": "Linux",
       "image_publisher": "Canonical",
       "image_offer": "UbuntuServer",
-      "image_sku": "16.04.0-LTS",
+      "image_sku": "18.04-LTS",
       "location": "{{user `azure_location`}}",
-      "vm_size": "Standard_DS2_v2"
+      "vm_size": "{{user `vm_size`}}",
+      "azure_tags": {
+        "chargeback": "{{user `tag_chargeback`}}",
+        "costcenter": "{{user `tag_costcenter`}}",
+        "imtcostcenter": "{{user `tag_imtcostcenter`}}",
+        "owner": "{{user `tag_owner`}}",
+        "project": "{{user `tag_project`}}",
+        "WBS": "{{user `tag_WBS`}}"
+    }
     }
   ],
   "provisioners": [
@@ -65,8 +59,8 @@
         "git clone --branch ausfestivs0 https://github.com/diaxion/terraform-azurerm-consul.git /tmp/terraform-consul-azure",
         "/tmp/terraform-consul-azure/modules/install-consul/install-consul --version {{user `consul_version`}}",
         "/tmp/terraform-consul-azure/modules/install-dnsmasq/install-dnsmasq",
-      
-        "/tmp/terraform-azurerm-vault/modules/install-vault/install-vault --version {{user `vault_version`}}"  
+
+        "/tmp/terraform-azurerm-vault/modules/install-vault/install-vault --version {{user `vault_version`}}"
       ]
     },
     {
