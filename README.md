@@ -51,7 +51,7 @@ To deploy the Consul server cluster, use the [Consul Azure Module](https://githu
 
 To deploy the Vault cluster:
 
-1. Create an Azure Image that has Vault installed (using the [install-vault module](./modules/install-vault)) and the Consul agent installed (using the [install-consul module](.//modules/install-consul)). Here is an [example Packer template](.//examples/consul-image).
+1. Create an Azure Image that has Vault installed (using the [install-vault module](./modules/install-vault)) and the Consul agent installed (using the [install-consul module](.//modules/install-consul)). Here is an [example Packer template](./examples/consul-image).
 
 1. Deploy that Azure Image across a Scale Set in a private subnet using the Terraform [vault-cluster module](./modules/vault-cluster).
 
@@ -59,7 +59,7 @@ To deploy the Vault cluster:
 
 1. Execute the [run-vault](./modules/run-vault) script during boot on each Instance to create the Vault cluster.
 
-1. If you only need to access Vault from inside your Azure account (recommended), run the [install-dnsmasq module](.//modules/install-dnsmasq) on each server, and that server will be able to reach Vault using the Consul Server cluster as the DNS resolver (e.g. using an address like `vault.service.consul`). See the [main example](.//MAIN.md) for working sample code.
+1. If you only need to access Vault from inside your Azure account (recommended), run the [install-dnsmasq module](./modules/install-dnsmasq) on each server, and that server will be able to reach Vault using the Consul Server cluster as the DNS resolver (e.g. using an address like `vault.service.consul`). See the [main example](./MAIN.md) for working sample code.
 
 1. Head over to the [How do you use the Vault cluster?](./modules/vault-cluster#how-do-you-use-the-vault-cluster) guide
    to learn how to initialize, unseal, and use Vault.

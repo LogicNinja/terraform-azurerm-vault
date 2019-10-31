@@ -78,8 +78,10 @@ variable "vault_storage_container_name" {
 }
 
 variable "instance_size" {
+  # See https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
   description = "The instance size for the servers"
-  default     = "Standard_A0"
+  #default     = "Standard_A0"
+  default     = "Standard_A2_v2"
 }
 
 variable "num_consul_servers" {
