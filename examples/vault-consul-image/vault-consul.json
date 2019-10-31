@@ -5,15 +5,15 @@
     "tenant_id": "{{env `ARM_TENANT_ID`}}",
     "client_id": "{{env `ARM_CLIENT_ID`}}",
     "client_secret": "{{env `ARM_CLIENT_SECRET`}}",
-    "azure_location": null,
+    "azure_location": "australiaeast",
     "consul_module_version": "v0.0.1",
-    "consul_version": "0.9.2",
-    "vault_version": "0.8.2",
+    "consul_version": "1.6.1",
+    "vault_version": "1.2.3",
     "github_oauth_token": "{{env `GITHUB_OAUTH_TOKEN`}}",
-    "resource_group_name": null,
-    "ca_public_key_path": null,
-    "tls_public_key_path": null,
-    "tls_private_key_path": null
+    "resource_group_name": "terraform-azurerm-vault-dev",
+    "ca_public_key_path": "./tls/ca.crt.pem",
+    "tls_public_key_path": "./tls/vault.crt.pem",
+    "tls_private_key_path": "./tls/vault.key.pem"
   },
   "builders": [
     {
@@ -35,7 +35,7 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "{{template_dir}}/../../../terraform-vault-azure",
+      "source": "{{template_dir}}/../../../terraform-azurerm-vault",
       "destination": "/tmp"
     },
     {
@@ -58,15 +58,15 @@
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
       "inline_shebang": "/bin/sh -x",
       "inline": [
-        "DEBIAN_FRONTEND=noninteractive apt-get -y upgrade",
-        "echo \"deb https://packages.microsoft.com/repos/azure-cli/ wheezy main\" | sudo tee /etc/apt/sources.list.d/azure-cli.list",
-        "apt-key adv --keyserver packages.microsoft.com --recv-keys 417A0893",
-        "apt-get update && apt-get install -y git libssl-dev libffi-dev python-dev build-essential apt-transport-https azure-cli",
+        "DEBIAN_FRONTEND=noninteractive apt-get update && apt-get upgrade",
+        "DEBIAN_FRONTEND=noninteractive apt-get install -y git libssl-dev libffi-dev python-dev build-essential apt-transport-https",
+        "DEBIAN_FRONTEND=noninteractive curl -sL https://aka.ms/InstallAzureCLIDeb | bash",
 
-        "/tmp/terraform-vault-azure/modules/install-vault/install-vault --version {{user `vault_version`}}",
-        "git clone --branch {{user `consul_module_version`}} https://{{user `github_oauth_token`}}@github.com/hashicorp/terraform-azurerm-consul.git /tmp/terraform-consul-azure",
+        "git clone --branch ausfestivs0 https://github.com/diaxion/terraform-azurerm-consul.git /tmp/terraform-consul-azure",
         "/tmp/terraform-consul-azure/modules/install-consul/install-consul --version {{user `consul_version`}}",
-        "/tmp/terraform-consul-azure/modules/install-dnsmasq/install-dnsmasq"
+        "/tmp/terraform-consul-azure/modules/install-dnsmasq/install-dnsmasq",
+      
+        "/tmp/terraform-azurerm-vault/modules/install-vault/install-vault --version {{user `vault_version`}}"  
       ]
     },
     {
@@ -79,7 +79,7 @@
         "mv /tmp/vault.key.pem /opt/vault/tls/",
         "chown vault:vault /opt/vault/tls/*",
         "chmod 600 /opt/vault/tls/*",
-        "/tmp/terraform-vault-azure/modules/update-certificate-store/update-certificate-store --cert-file-path /opt/vault/tls/ca.crt.pem"
+        "/tmp/terraform-azurerm-vault/modules/update-certificate-store/update-certificate-store --cert-file-path /opt/vault/tls/ca.crt.pem"
       ]
     },
     {

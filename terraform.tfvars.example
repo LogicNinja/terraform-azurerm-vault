@@ -1,0 +1,37 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# REQUIRED PARAMETERS
+# ---------------------------------------------------------------------------------------------------------------------
+
+# # "The Azure subscription ID"
+# subscription_id =
+
+# # "The Azure tenant ID"
+# tenant_id = 
+
+# # "The Azure client ID"
+# client_id
+
+# # "The Azure secret access key"
+# secret_access_key = 
+
+# "The name of the Azure resource group consul will be deployed into. This RG should already exist"
+resource_group_name = "{YOUR RG NAME HERE}"
+
+# "The name of an Azure Storage Account. This SA should already exist"
+storage_account_name = "{YOUR SA NAME HERE}"
+
+# "The key for storage_account_name."
+storage_account_key = "{THE SA ACCOUNT KEY HERE}"
+
+# "The URI to the Azure image that should be deployed to the Vault cluster."
+# The URI will look something like `/subscriptions/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX/resourceGroups/terraform-azurerm-vault-dev/providers/Microsoft.Compute/images/vault-consul-ubuntu-YYYY-MM-DD-HHMMSS`
+image_uri = "{YOUR URI HERE}"
+
+# "The SSH public key that will be added to SSH authorized_users on the consul instances"
+key_data = "{YOUR SSH PUBLIC KEY}"
+
+# "A list of CIDR-formatted IP address ranges from which the Azure Instances will allow connections to Consul"
+# type        = list(string)
+allowed_inbound_cidr_blocks = [
+    "10.0.10.0/24"
+]

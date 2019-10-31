@@ -40,7 +40,7 @@ variable "key_data" {
 
 variable "allowed_inbound_cidr_blocks" {
   description = "A list of CIDR-formatted IP address ranges from which the Azure Instances will allow connections to Consul"
-  type        = "list"
+  type        = list(string)
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -49,40 +49,48 @@ variable "allowed_inbound_cidr_blocks" {
 # ---------------------------------------------------------------------------------------------------------------------
 variable "location" {
   description = "The Azure region the consul cluster will be deployed in"
-  default = "East US"
+  default     = "australiaeast"
 }
 
 variable "address_space" {
   description = "The supernet for the resources that will be created"
-  default = "10.0.0.0/16"
+  default     = "10.0.0.0/16"
 }
 
 variable "subnet_address" {
   description = "The subnet that consul resources will be deployed into"
-  default = "10.0.10.0/24"
+  default     = "10.0.10.0/24"
 }
 
 variable "consul_cluster_name" {
   description = "What to name the Consul cluster and all of its associated resources"
-  default = "consul-example"
+  default     = "consul-example"
 }
 
 variable "vault_cluster_name" {
   description = "What to name the Vault cluster and all of its associated resources"
-  default = "vault-example"
+  default     = "vault-example"
+}
+
+variable "vault_storage_container_name" {
+  description = "vault data store container name in the Storage Account"
+  default     = "vault"
 }
 
 variable "instance_size" {
+  # See https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
   description = "The instance size for the servers"
-  default = "Standard_A0"
+  #default     = "Standard_A0"
+  default     = "Standard_A2_v2"
 }
 
 variable "num_consul_servers" {
   description = "The number of Consul server nodes to deploy. We strongly recommend using 3 or 5."
-  default = 3
+  default     = 3
 }
 
 variable "num_vault_servers" {
   description = "The number of Vault server nodes to deploy. We strongly recommend using 3 or 5."
-  default = 3
+  default     = 3
 }
+
